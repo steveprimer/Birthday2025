@@ -1,14 +1,17 @@
 import React, { useState, useEffect } from "react";
 import BlurText from "../effects/BlurText";
-import Ballpit from "../effects/Ballpit";
+import Ballpit from "../effects/BallPit";
+import videoSrc from "../assets/sparkle.mp4"; // Adjust path as needed
 
 export default function Hero() {
+  // Birthday date for countdown (optional, you can move countdown elsewhere)
   const birthdayDate = new Date("2025-08-18T00:00:00");
   const [timeLeft, setTimeLeft] = useState(getTimeLeft());
 
   function getTimeLeft() {
     const now = new Date();
     const diff = birthdayDate - now;
+
     return diff > 0
       ? {
           days: Math.floor(diff / (1000 * 60 * 60 * 24)),
@@ -24,46 +27,61 @@ export default function Hero() {
     return () => clearInterval(timer);
   }, []);
 
-  return (
-    <section className="relative h-screen flex flex-col justify-center items-center bg-gradient-to-br from-orange-400 to-orange-700 text-white text-center px-6 overflow-hidden">
-      {/* Ballpit canvas behind */}
-      <div className="absolute inset-0 w-full h-full z-0 pointer-events-none" />
+  // Scroll handler
+  const scrollToTimeline = () => {
+    const el = document.getElementById("timelineSection");
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth" });
+    }
+  };
 
-      <div className="absolute top-0 left-0 w-screen h-screen z-0 pointer-events-none">
+  return (
+    <section className="relative h-screen flex flex-col justify-center items-center text-white text-center overflow-hidden">
+      {/* Video background */}
+      <video
+        autoPlay
+        loop
+        muted
+        className="absolute top-0 left-0 w-full h-full object-cover -z-10 opacity-70"
+        src={videoSrc}
+        type="video/mp4"
+      />
+
+      {/* Ballpit balloons */}
+      <div className="absolute top-0 left-0 w-full h-full pointer-events-none -z-5">
         <Ballpit
-          count={100}
-          gravity={0.1}
-          friction={0.9975}
-          wallBounce={0.95}
+          count={80}
+          gravity={-0.02} // negative gravity to float balloons upward
+          friction={0.998}
+          wallBounce={0.9}
           followCursor={true}
+          colors={["#F87171", "#FBBF24", "#34D399", "#60A5FA"]} // Optional: pass colors for balloons
         />
       </div>
 
-      {/* Content on top */}
+      {/* Headline with bounce */}
       <BlurText
-        text="Happy Birthday, Bro! 🎉"
-        delay={300}
+        text="Happy Birthday, bro! 🎂❤️"
+        delay={200}
         animateBy="words"
         direction="top"
-        className="text-6xl font-extrabold mb-8 drop-shadow-lg z-10"
+        className="text-6xl font-extrabold mb-8 animate-bounce"
       />
 
-      {timeLeft ? (
-        <div className="text-3xl font-semibold tracking-widest mb-12 z-10 drop-shadow-md">
+      {/* Optional countdown below headline */}
+      {timeLeft && (
+        <div className="text-2xl font-semibold tracking-widest mb-12 drop-shadow-lg bg-black bg-opacity-30 rounded-lg px-6 py-3">
           {timeLeft.days}d : {timeLeft.hours}h : {timeLeft.minutes}m :{" "}
           {timeLeft.seconds}s
         </div>
-      ) : (
-        <p className="text-3xl mb-12 z-10 drop-shadow-md">
-          🎉 The Birthday is Here! 🎉
-        </p>
       )}
 
+      {/* Scroll to begin button */}
       <button
-        onClick={() => alert("Surprise opened!")}
-        className="bg-white text-orange-500 text-xl py-4 px-10 rounded-full font-semibold shadow-xl transition-transform duration-300 ease-in-out hover:scale-105 active:scale-95 z-10"
+        onClick={scrollToTimeline}
+        className="bg-white text-orange-500 font-bold py-3 px-10 rounded-full shadow-lg hover:scale-105 active:scale-95 transition-transform z-10"
       >
-        Open Your Gift
+        Scroll to Begin
       </button>
     </section>
   );

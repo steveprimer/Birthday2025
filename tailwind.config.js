@@ -4,9 +4,5 @@ module.exports = {
   theme: {
     extend: {},
   },
-  plugins: [
-    // OPTIONAL: uncomment/install plugins if you need them
-    // require('@tailwindcss/forms'),
-    // require('@tailwindcss/aspect-ratio'),
-  ],
+  plugins: [require("tailwind-scrollbar")],
 };
