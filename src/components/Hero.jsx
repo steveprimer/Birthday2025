@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import BlurText from "../effects/BlurText";
-import Ballpit from "../effects/BallPit";
+import Ballpit from "../effects/Ballpit";
 
 export default function Hero() {
   const birthdayDate = new Date("2025-08-18T00:00:00");
