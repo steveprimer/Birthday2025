@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import BlurText from "../effects/BlurText";
-import Ballpit from "../effects/BallPit";
+import Ballpit from "../effects/Ballpit";
 import videoSrc from "../assets/sparkle.mp4"; // Adjust path as needed
 
 export default function Hero() {
