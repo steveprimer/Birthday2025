@@ -3,7 +3,7 @@ import BlurText from "../effects/BlurText";
 import Ballpit from "../effects/Ballpit";
 import videoSrc from "../assets/sparkle.mp4"; // Adjust path as needed
 
-export default function Hero() {
+export default function Hero({ playMusic }) {
   // Birthday date for countdown (optional, you can move countdown elsewhere)
   const birthdayDate = new Date("2025-08-18T00:00:00");
   const [timeLeft, setTimeLeft] = useState(getTimeLeft());
@@ -29,6 +29,7 @@ export default function Hero() {
 
   // Scroll handler
   const scrollToTimeline = () => {
+    if (playMusic) playMusic();
     const el = document.getElementById("timelineSection");
     if (el) {
       el.scrollIntoView({ behavior: "smooth" });
@@ -42,7 +43,7 @@ export default function Hero() {
         autoPlay
         loop
         muted
-        className="absolute top-0 left-0 w-full h-full object-cover -z-10 opacity-70"
+        className="absolute top-0 left-0 w-full h-full object-cover -z-10 opacity-100"
         src={videoSrc}
         type="video/mp4"
       />
@@ -55,13 +56,13 @@ export default function Hero() {
           friction={0.998}
           wallBounce={0.9}
           followCursor={true}
-          colors={["#F87171", "#FBBF24", "#34D399", "#60A5FA"]} // Optional: pass colors for balloons
+          // colors={["#F87171", "#FBBF24", "#34D399", "#60A5FA"]}
         />
       </div>
 
       {/* Headline with bounce */}
       <BlurText
-        text="Happy Birthday, bro! 🎂❤️"
+        text="Happy Birthday, Khushi! 🎂❤️"
         delay={200}
         animateBy="words"
         direction="top"

@@ -4,30 +4,38 @@ import Confetti from "react-confetti";
 const galleryItems = [
   {
     type: "image",
-    src: "/memories/selfie1.jpg",
-    note: "This was the day you made the best pasta ever 🍝",
+    src: "/memories/aesthetic-kiss.jpg",
+    note: "The most aesthetic kiss ever captured! ",
   },
   {
     type: "image",
-    src: "/memories/trip1.jpg",
-    note: "Sunset on our mountain trip 🌄",
+    src: "/memories/most-aesthetic-couple.jpg",
+    note: "Most aesthetic couple ever! ",
   },
   {
-    type: "video",
-    src: "/memories/candid-video.mp4",
-    note: "Caught you dancing like no one’s watching! 💃",
+    type: "image",
+    src: "/memories/Hot-one-out.jpg",
+    note: "Hot one out challenge! (You won this one!)",
+  },
+  ,
+  {
+    type: "image",
+    src: "/memories/random-fest.jpg",
+    note: "IIT Delhi random fest vibes! ",
+  },
+  {
+    type: "image",
+    src: "/memories/diwali-vibes.jpg",
+    note: "diwali 2k24 vibes! ",
   },
 ];
 
 export default function PhotoGallery() {
   const [modalOpen, setModalOpen] = useState(false);
   const [activeItem, setActiveItem] = useState(null);
-
-  // Refs & state for gallery container dimensions
   const galleryRef = useRef(null);
   const [gallerySize, setGallerySize] = useState({ width: 0, height: 0 });
 
-  // Measure gallery container size to size confetti
   useEffect(() => {
     const updateSize = () => {
       if (galleryRef.current) {
@@ -36,7 +44,7 @@ export default function PhotoGallery() {
       }
     };
 
-    updateSize(); // Initial size
+    updateSize();
     window.addEventListener("resize", updateSize);
     return () => window.removeEventListener("resize", updateSize);
   }, []);
@@ -48,31 +56,27 @@ export default function PhotoGallery() {
 
   const closeModal = () => setModalOpen(false);
 
-  // Close modal on Escape key press
   useEffect(() => {
     const handleKeyDown = (e) => {
-      if (e.key === "Escape" && modalOpen) {
-        closeModal();
-      }
+      if (e.key === "Escape" && modalOpen) closeModal();
     };
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [modalOpen]);
 
   return (
-    <div className="bg-gradient-to-br from-orange-200 via-orange-100 to-orange-200 py-12">
+    <div className="bg-gradient-to-br from-pink-200 via-pink-100 to-purple-100 py-14">
       <section
         ref={galleryRef}
-        className="max-w-6xl mx-auto p-6 relative overflow-hidden rounded-lg shadow-lg bg-white"
+        className="max-w-7xl mx-auto p-8 relative rounded-3xl shadow-2xl bg-white bg-opacity-90 backdrop-blur-md"
       >
-        {/* Confetti fills the gallery container */}
         <Confetti
           width={gallerySize.width}
           height={gallerySize.height}
-          colors={["#f87171", "#fb923c", "#fbbf24", "#34d399", "#60a5fa"]}
+          colors={["#f9a8d4", "#f472b6", "#ec4899", "#c084fc", "#a78bfa"]}
           recycle={true}
-          numberOfPieces={70}
-          gravity={0.08}
+          numberOfPieces={60}
+          gravity={0.06}
           style={{
             position: "absolute",
             top: 0,
@@ -82,35 +86,35 @@ export default function PhotoGallery() {
           }}
         />
 
-        <h2 className="text-4xl font-bold mb-8 text-center relative z-10">
+        <h2 className="text-4xl font-extrabold mb-10 text-center text-pink-700 drop-shadow-md relative z-10">
           Photo & Video Gallery
         </h2>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 relative z-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 relative z-10">
           {galleryItems.map((item, idx) => (
             <div
               key={idx}
-              className="relative cursor-pointer rounded-lg overflow-hidden shadow-lg hover:scale-105 transform transition"
               onClick={() => openModal(item)}
+              className="relative cursor-pointer rounded-xl overflow-hidden shadow-lg transform transition-transform hover:scale-[1.06] hover:shadow-2xl"
             >
               {item.type === "image" ? (
                 <img
                   src={item.src}
                   alt={`Memory: ${item.note}`}
-                  className="w-full h-64 object-cover"
+                  className="w-full h-64 object-cover rounded-xl"
                   loading="lazy"
                 />
               ) : (
                 <video
                   src={item.src}
-                  className="w-full h-64 object-cover"
+                  className="w-full h-64 object-cover rounded-xl"
                   muted
                   playsInline
                   loop
                   preload="metadata"
                 />
               )}
-              <div className="absolute inset-0 bg-black bg-opacity-30 opacity-0 hover:opacity-100 flex items-center justify-center text-white text-sm px-4 text-center transition-opacity">
+              <div className="absolute inset-0 bg-pink-700 bg-opacity-60 opacity-0 hover:opacity-100 flex items-center justify-center text-white text-center text-sm p-4 rounded-xl transition-opacity">
                 {item.note}
               </div>
             </div>
@@ -120,17 +124,16 @@ export default function PhotoGallery() {
         {/* Modal */}
         {modalOpen && activeItem && (
           <div
-            className="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50 transition-opacity duration-300 ease-in-out"
+            className="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center z-50 transition-opacity duration-300 ease-in-out"
             onClick={closeModal}
-            style={{ opacity: modalOpen ? 1 : 0 }}
           >
             <div
-              className="bg-white rounded-lg max-w-3xl w-full p-4 relative shadow-lg"
+              className="bg-white rounded-2xl max-w-4xl w-full p-6 relative shadow-2xl"
               onClick={(e) => e.stopPropagation()}
             >
               <button
                 onClick={closeModal}
-                className="absolute top-3 right-3 text-gray-700 hover:text-gray-900 text-2xl font-bold"
+                className="absolute top-4 right-4 text-pink-600 hover:text-pink-800 text-3xl font-bold"
                 aria-label="Close gallery modal"
               >
                 &times;
@@ -140,18 +143,20 @@ export default function PhotoGallery() {
                 <img
                   src={activeItem.src}
                   alt={`Memory: ${activeItem.note}`}
-                  className="w-full rounded-md mb-4 object-contain max-h-[70vh]"
+                  className="w-full rounded-xl mb-6 object-contain max-h-[75vh]"
                 />
               ) : (
                 <video
                   src={activeItem.src}
                   controls
                   autoPlay
-                  className="w-full rounded-md mb-4 max-h-[70vh]"
+                  className="w-full rounded-xl mb-6 max-h-[75vh]"
                 />
               )}
 
-              <p className="text-center text-gray-700">{activeItem.note}</p>
+              <p className="text-center text-pink-700 font-semibold">
+                {activeItem.note}
+              </p>
             </div>
           </div>
         )}

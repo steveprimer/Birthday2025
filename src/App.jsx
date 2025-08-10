@@ -1,19 +1,26 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import CountdownPage from "./components/CountdownPage";
 import BackgroundMusic from "./components/BackgroundMusic";
 import Hero from "./components/Hero";
-import ParallaxTimelineWrapper from "./components/Parallax";
+// import MemoryTimeline from "./components/MemoryTimeline";
 import LoveLetter from "./components/LoveLetter";
 import PhotoGallery from "./components/PhotoGallery";
 import LoveQuiz from "./components/Quiz";
 import CountdownSurprise from "./components/SurpriseReveal";
 import "./App.css";
+import MemoryTimeline from "./components/MemoryTimeline";
 
-const TARGET_DATE = new Date("2025-08-17T23:59:59"); // Set your target date here
+const TARGET_DATE = new Date("2024-08-17T23:59:59"); // Set your target date here
 
 export default function App() {
   const [timeLeft, setTimeLeft] = useState(getTimeLeft());
+  const musicRef = useRef();
 
+  const playMusic = () => {
+    if (musicRef.current) {
+      musicRef.current.play();
+    }
+  };
   function getTimeLeft() {
     const now = new Date();
     const diff = TARGET_DATE - now;
@@ -39,12 +46,16 @@ export default function App() {
 
   return (
     <>
-      <BackgroundMusic />
-      <Hero />
-      <ParallaxTimelineWrapper />
-      <LoveLetter />
+      <BackgroundMusic ref={musicRef} />
+      <Hero playMusic={playMusic} />
+      <MemoryTimeline />
+      <div className="bg-gradient-to-br from-pink-700 via-pink-400 to-pink-200 px-6 py-12 min-h-screen">
+        <LoveLetter />
+      </div>
       <PhotoGallery />
-      <LoveQuiz />
+      <div className="bg-gradient-to-br from-pink-700 via-pink-400 to-pink-200 px-6 py-12 min-h-screen">
+        <LoveQuiz />
+      </div>
       <CountdownSurprise />
     </>
   );

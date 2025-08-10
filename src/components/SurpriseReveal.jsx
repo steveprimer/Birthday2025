@@ -45,14 +45,14 @@ export default function SurpriseRevealPage() {
   }, [showSurprise]);
 
   return (
-    <main className="min-h-screen flex flex-col justify-center items-center bg-gradient-to-br from-orange-200 via-orange-300 to-orange-400 p-8">
+    <main className="min-h-screen flex flex-col justify-center items-center bg-gradient-to-br from-pink-200 via-pink-100 to-purple-200 p-8">
       {!showSurprise ? (
         <>
-          <h1 className="text-5xl font-bold mb-6 text-orange-900 text-center">
+          <h1 className="text-5xl font-extrabold mb-6 text-pink-700 text-center drop-shadow-md">
             Countdown to Your Surprise
           </h1>
 
-          <div className="flex space-x-6 text-center text-orange-900 text-4xl font-mono font-semibold mb-8">
+          <div className="flex space-x-8 text-center text-pink-700 text-4xl font-mono font-semibold mb-8 select-none">
             <div>
               <div>{timeLeft.days}</div>
               <div className="text-sm font-normal">Days</div>
@@ -76,29 +76,28 @@ export default function SurpriseRevealPage() {
               if (isTimeUp()) setShowSurprise(true);
             }}
             disabled={!isTimeUp()}
-            className={`px-8 py-4 rounded-full text-white font-semibold text-lg transition-shadow duration-300 ${
+            className={`px-10 py-4 rounded-full text-white font-semibold text-lg transition-shadow duration-300 ${
               isTimeUp()
-                ? "bg-orange-600 hover:bg-orange-700 shadow-lg cursor-pointer"
-                : "bg-orange-300 cursor-not-allowed"
+                ? "bg-pink-600 hover:bg-pink-700 shadow-lg cursor-pointer"
+                : "bg-pink-300 cursor-not-allowed"
             }`}
           >
             Reveal Surprise Now
           </button>
 
           {!isTimeUp() && (
-            <p className="mt-4 text-orange-900 italic text-sm">
+            <p className="mt-4 text-pink-700 italic text-sm max-w-xs text-center">
               The surprise can only be revealed once the countdown reaches zero.
             </p>
           )}
         </>
       ) : (
-        <section className="max-w-4xl mx-auto p-8 bg-gradient-to-br from-orange-50 to-pink-100 rounded-3xl shadow-xl text-gray-800 font-serif flex flex-col items-center">
-          <h2 className="text-3xl font-bold mb-6 text-orange-600 text-center">
-            A Personal Video Edit Just for You
+        <section className="max-w-4xl mx-auto p-8 bg-gradient-to-br from-pink-50 to-purple-100 rounded-3xl shadow-xl text-pink-900 font-serif flex flex-col items-center">
+          <h2 className="text-3xl font-bold mb-6 text-pink-600 text-center drop-shadow-sm">
+            Got me learning Video Editing for this haha
           </h2>
           <p className="mb-6 text-center italic text-pink-600 max-w-lg">
-            Here’s a little something I made — a collection of moments and
-            memories from our time together. Watch and relive the magic.
+            Here’s a little something I made — Hope you like it.
           </p>
 
           <video
@@ -113,7 +112,7 @@ export default function SurpriseRevealPage() {
           </video>
 
           <p className="mt-6 text-center text-pink-700 font-semibold">
-            With all my love, always.
+            With all my love, always. Thank me w a bj ;)
           </p>
         </section>
       )}

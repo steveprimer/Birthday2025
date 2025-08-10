@@ -1,11 +1,18 @@
 import React, { useState, useEffect, useRef } from "react";
 
-const letterText = `Hey love,
+const letterText = `Hey Khushi,
 
-Every day with you is a gift I cherish deeply. Your smile lights up my world, and your laughter is the sweetest melody to my ears. Thank you for being my rock, my joy, and my everything.
+I'm really so glad that its you, You who is my girlfriend.
+I tend to forget my struggles and pain when i see your hand dangling in mine.
+Whenever i see you laugh and be like a little girl, it makes me forget everything else and makes me want
+to be with you.
+Thank you for always being there for me, though what we had was mostly hardships.
+But i can say, everyday you choose me over everything else, gives me courage and hope that we
+will make it in the end.
+"Dekh sutta toh me chodh skta hu, lekin tuje nhi chodh sktaa.. ☺️"
 
-Forever yours,
-[Your Name]`;
+All yours,
+Anson`;
 
 export default function LoveLetter() {
   const [displayedText, setDisplayedText] = useState("");
@@ -49,32 +56,35 @@ export default function LoveLetter() {
   return (
     <section
       ref={sectionRef}
-      className="max-w-3xl mx-auto p-10 bg-gradient-to-br from-pink-100 via-pink-50 to-pink-100 rounded-3xl shadow-xl text-pink-900 font-serif relative"
+      className="max-w-3xl mx-auto p-12 bg-gradient-to-br from-red-300 via-pink-100 to-pink-200 rounded-3xl shadow-2xl text-pink-900 font-serif relative min-h-[70vh] flex items-center"
+      style={{ minHeight: "100vh" }} // enough vertical space, can be adjusted
     >
       <p
         style={{
           whiteSpace: "pre-wrap",
-          minHeight: "12rem",
-          fontSize: "1.125rem",
-          lineHeight: "1.75rem",
-          letterSpacing: "0.03em",
-          fontWeight: "500",
+          minHeight: "14rem", // higher minHeight to reserve space for full letter
+          fontSize: "1.25rem",
+          lineHeight: "2rem",
+          letterSpacing: "0.04em",
+          fontWeight: "600",
           transition: "all 0.3s ease-out",
           userSelect: "text",
+          margin: 0,
         }}
       >
         {displayedText}
         <span className="animate-blink text-pink-600">|</span>
       </p>
+
       <style>{`
-        @keyframes blink {
-          0%, 50%, 100% {opacity: 1;}
-          25%, 75% {opacity: 0;}
-        }
-        .animate-blink {
-          animation: blink 1.2s infinite;
-        }
-      `}</style>
+      @keyframes blink {
+        0%, 50%, 100% {opacity: 1;}
+        25%, 75% {opacity: 0;}
+      }
+      .animate-blink {
+        animation: blink 1.2s infinite;
+      }
+    `}</style>
     </section>
   );
 }
