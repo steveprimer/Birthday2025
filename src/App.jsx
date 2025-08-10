@@ -9,7 +9,7 @@ import LoveQuiz from "./components/Quiz";
 import CountdownSurprise from "./components/SurpriseReveal";
 import "./App.css";
 
-const TARGET_DATE = new Date("2025-08-10T04:23:00"); // Set your target date here
+const TARGET_DATE = new Date("2025-08-18T04:23:00"); // Set your target date here
 
 export default function App() {
   const [timeLeft, setTimeLeft] = useState(getTimeLeft());
