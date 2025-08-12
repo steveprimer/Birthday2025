@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
 
-const TARGET_DATE = new Date("2024-08-18T23:11:00");
+const TARGET_DATE = new Date("2025-08-13T04:51:00");
 
 export default function SurpriseRevealPage() {
   const [timeLeft, setTimeLeft] = useState(getTimeLeft());
   const [showSurprise, setShowSurprise] = useState(false);
+  const [timeUp, setTimeUp] = useState(new Date() >= TARGET_DATE);
   const videoRef = useRef(null);
 
   function getTimeLeft() {
@@ -19,22 +20,24 @@ export default function SurpriseRevealPage() {
     };
   }
 
-  const isTimeUp = () => new Date() >= TARGET_DATE;
-
   useEffect(() => {
-    if (showSurprise) return;
+    if (showSurprise) return; // stop timer after reveal
+
     const timerId = setInterval(() => {
       const updatedTimeLeft = getTimeLeft();
       setTimeLeft(updatedTimeLeft);
+
       if (
         updatedTimeLeft.days === 0 &&
         updatedTimeLeft.hours === 0 &&
         updatedTimeLeft.minutes === 0 &&
         updatedTimeLeft.seconds === 0
       ) {
+        setTimeUp(true); // make button clickable
         clearInterval(timerId);
       }
     }, 1000);
+
     return () => clearInterval(timerId);
   }, [showSurprise]);
 
@@ -90,12 +93,10 @@ export default function SurpriseRevealPage() {
           </div>
 
           <button
-            onClick={() => {
-              if (isTimeUp()) setShowSurprise(true);
-            }}
-            disabled={!isTimeUp()}
+            onClick={() => setShowSurprise(true)}
+            disabled={!timeUp}
             className={`px-10 py-4 rounded-full text-white font-semibold text-lg transition-shadow duration-300 ${
-              isTimeUp()
+              timeUp
                 ? "bg-pink-600 hover:bg-pink-700 shadow-lg cursor-pointer"
                 : "bg-pink-300 cursor-not-allowed"
             }`}
@@ -103,7 +104,7 @@ export default function SurpriseRevealPage() {
             Reveal Surprise Now
           </button>
 
-          {!isTimeUp() && (
+          {!timeUp && (
             <p className="mt-4 text-pink-700 italic text-sm max-w-xs text-center">
               The surprise can only be revealed once the countdown reaches zero.
             </p>
@@ -115,7 +116,7 @@ export default function SurpriseRevealPage() {
             Got me learning Video Editing for this haha
           </h2>
           <p className="mb-6 text-center italic text-pink-600 max-w-lg">
-            Here’s a little something I made — Hope you like it.
+            Here’s a little something I made, Hope you like it.
           </p>
 
           <video

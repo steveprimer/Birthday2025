@@ -4,29 +4,6 @@ import Ballpit from "../effects/Ballpit";
 import videoSrc from "../assets/sparkle.mp4"; // Adjust path as needed
 
 export default function Hero({ playMusic }) {
-  // Birthday date for countdown (optional, you can move countdown elsewhere)
-  const birthdayDate = new Date("2025-08-18T00:00:00");
-  const [timeLeft, setTimeLeft] = useState(getTimeLeft());
-
-  function getTimeLeft() {
-    const now = new Date();
-    const diff = birthdayDate - now;
-
-    return diff > 0
-      ? {
-          days: Math.floor(diff / (1000 * 60 * 60 * 24)),
-          hours: Math.floor((diff / (1000 * 60 * 60)) % 24),
-          minutes: Math.floor((diff / (1000 * 60)) % 60),
-          seconds: Math.floor((diff / 1000) % 60),
-        }
-      : null;
-  }
-
-  useEffect(() => {
-    const timer = setInterval(() => setTimeLeft(getTimeLeft()), 1000);
-    return () => clearInterval(timer);
-  }, []);
-
   // Scroll handler
   const scrollToTimeline = () => {
     if (playMusic) playMusic();
@@ -68,14 +45,6 @@ export default function Hero({ playMusic }) {
         direction="top"
         className="text-6xl font-extrabold mb-8 animate-bounce"
       />
-
-      {/* Optional countdown below headline */}
-      {timeLeft && (
-        <div className="text-2xl font-semibold tracking-widest mb-12 drop-shadow-lg bg-black bg-opacity-30 rounded-lg px-6 py-3">
-          {timeLeft.days}d : {timeLeft.hours}h : {timeLeft.minutes}m :{" "}
-          {timeLeft.seconds}s
-        </div>
-      )}
 
       {/* Scroll to begin button */}
       <button
