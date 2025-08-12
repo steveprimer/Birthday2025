@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
-const TARGET_DATE = new Date("2025-08-18T23:11:00");
+const TARGET_DATE = new Date("2024-08-18T23:11:00");
 
 export default function SurpriseRevealPage() {
   const [timeLeft, setTimeLeft] = useState(getTimeLeft());
   const [showSurprise, setShowSurprise] = useState(false);
+  const videoRef = useRef(null);
 
-  // Calculate time left in seconds, minutes, hours, days
   function getTimeLeft() {
     const now = new Date();
     const diff = TARGET_DATE - now;
@@ -19,15 +19,10 @@ export default function SurpriseRevealPage() {
     };
   }
 
-  // Check if countdown is over
-  const isTimeUp = () => {
-    const now = new Date();
-    return now >= TARGET_DATE;
-  };
+  const isTimeUp = () => new Date() >= TARGET_DATE;
 
   useEffect(() => {
-    if (showSurprise) return; // stop timer after reveal
-
+    if (showSurprise) return;
     const timerId = setInterval(() => {
       const updatedTimeLeft = getTimeLeft();
       setTimeLeft(updatedTimeLeft);
@@ -40,8 +35,31 @@ export default function SurpriseRevealPage() {
         clearInterval(timerId);
       }
     }, 1000);
-
     return () => clearInterval(timerId);
+  }, [showSurprise]);
+
+  // Pause / resume background music when video plays/pauses
+  useEffect(() => {
+    if (!videoRef.current) return;
+    const bgAudio = document.querySelector("audio"); // from BackgroundMusic component
+
+    const handlePlay = () => {
+      if (bgAudio) bgAudio.pause();
+    };
+    const handlePause = () => {
+      if (bgAudio) bgAudio.play();
+    };
+
+    const vid = videoRef.current;
+    vid.addEventListener("play", handlePlay);
+    vid.addEventListener("pause", handlePause);
+    vid.addEventListener("ended", handlePause);
+
+    return () => {
+      vid.removeEventListener("play", handlePlay);
+      vid.removeEventListener("pause", handlePause);
+      vid.removeEventListener("ended", handlePause);
+    };
   }, [showSurprise]);
 
   return (
@@ -101,11 +119,10 @@ export default function SurpriseRevealPage() {
           </p>
 
           <video
-            src="/memories/our-journey.mp4"
+            ref={videoRef}
+            src="/memories/memory.mp4"
             controls
             autoPlay
-            muted
-            loop
             className="rounded-xl shadow-lg max-w-full w-full sm:w-3/4"
           >
             Sorry, your browser does not support embedded videos.
