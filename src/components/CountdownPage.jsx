@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 // import your main birthday site component here
 import App from "../App"; // replace with your actual component path
 
-const TARGET_DATE = new Date("2025-08-13T05:00:00"); // Set your target date/time here
+const TARGET_DATE = new Date("2025-08-13T05:07:00"); // Set your target date/time here
 
 export default function CountdownPage() {
   const [timeLeft, setTimeLeft] = useState(getTimeLeft());
