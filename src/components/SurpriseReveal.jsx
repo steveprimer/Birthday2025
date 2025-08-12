@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 
-const TARGET_DATE = new Date("2025-08-13T04:51:00");
+const TARGET_DATE = new Date("2025-08-13T05:02:00");
 
 export default function SurpriseRevealPage() {
   const [timeLeft, setTimeLeft] = useState(getTimeLeft());
